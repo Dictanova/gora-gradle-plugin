@@ -1,4 +1,4 @@
-avro-gradle-plugin
+gora-gradle-plugin
 ==================
 
-Gradle Plugin for processing Avro files
+Gradle Plugin for processing Avro files for Gora
