@@ -1,15 +1,16 @@
-package org.apache.avro.gradle
+package org.apache.gora.gradle
 
 import org.apache.avro.Protocol
 import org.apache.avro.compiler.idl.Idl
 import org.apache.avro.compiler.idl.ParseException
-import org.apache.avro.compiler.specific.SpecificCompiler
+//import org.apache.avro.compiler.specific.SpecificCompiler
 import org.apache.avro.generic.GenericData
+import org.apache.gora.compiler.GoraCompiler
 import org.apache.maven.artifact.DependencyResolutionRequiredException
 import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 
-class AvroCompileTask extends SourceTask {
+class GoraCompileTask extends SourceTask {
 
     static final String IDL_EXTENSION = ".avdl"
     static final String PROTOCOL_EXTENSION = ".avpr"
@@ -19,7 +20,7 @@ class AvroCompileTask extends SourceTask {
     String templateDirectory = "/org/apache/avro/compiler/specific/templates/java/classic/"
     File destinationDir
 
-    AvroCompileTask( ) {
+    GoraCompileTask( ) {
         super()
         include "**/*$PROTOCOL_EXTENSION", "**/*$SCHEMA_EXTENSION", "**/*$IDL_EXTENSION"
     }
@@ -47,18 +48,21 @@ class AvroCompileTask extends SourceTask {
                     Protocol p = parser.CompilationUnit()
                     String json = p.toString( true )
                     Protocol protocol = Protocol.parse( json )
-                    SpecificCompiler compiler = new SpecificCompiler( protocol )
+                    //SpecificCompiler compiler = new SpecificCompiler( protocol )
+					GoraCompiler compiler = new GoraCompiler( protocol )
                     compiler.setStringType( GenericData.StringType.valueOf( stringType ) )
                     compiler.setTemplateDir( templateDirectory )
                     compiler.compileToDestination( null, destinationDir )
 
                 } else if ( file.name.endsWith( SCHEMA_EXTENSION ) ) {
 
-                    SpecificCompiler.compileSchema( file, destinationDir )
+                    //SpecificCompiler.compileSchema( file, destinationDir )
+					GoraCompiler.compileSchema( file, destinationDir )
 
                 } else if ( file.name.endsWith( PROTOCOL_EXTENSION ) ) {
 
-                    SpecificCompiler.compileProtocol( file, destinationDir )
+                    //SpecificCompiler.compileProtocol( file, destinationDir )
+					GoraCompiler.compileProtocol( file, destinationDir )
 
                 } else {
 

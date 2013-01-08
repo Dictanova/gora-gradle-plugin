@@ -20,7 +20,11 @@ uploadArchives {
 
 dependencies {
     compile gradleApi()
-    compile "org.apache.avro:avro-compiler:${version}"
+	compile "org.apache.avro:avro-compiler:${avroVersion}"
+    groovy "org.apache.avro:avro-compiler:${avroVersion}"
+	compile "org.apache.gora:gora-core:${version}"
+    groovy "org.apache.gora:gora-core:${version}"
+	//groovy "org.apache.gora:gora:${version}"
     groovy "org.codehaus.groovy:groovy-all:${groovyVersion}"
 }
 
