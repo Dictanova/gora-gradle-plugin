@@ -1,10 +1,12 @@
 package org.apache.gora.gradle
-
+/*
 import org.apache.avro.Protocol
 import org.apache.avro.compiler.idl.Idl
 import org.apache.avro.compiler.idl.ParseException
-//import org.apache.avro.compiler.specific.SpecificCompiler
+import org.apache.avro.compiler.specific.SpecificCompiler
 import org.apache.avro.generic.GenericData
+import org.apache.avro.Schema;
+*/
 import org.apache.gora.compiler.GoraCompiler
 import org.apache.maven.artifact.DependencyResolutionRequiredException
 import org.gradle.api.tasks.SourceTask
@@ -36,7 +38,7 @@ class GoraCompileTask extends SourceTask {
 
             logger.info( "Processing ${ file.name }" + file.name )
             try {
-
+/*
                 // First check if GenAvro needs to be run
                 if ( file.absolutePath.endsWith( IDL_EXTENSION ) ) {
 
@@ -48,28 +50,33 @@ class GoraCompileTask extends SourceTask {
                     Protocol p = parser.CompilationUnit()
                     String json = p.toString( true )
                     Protocol protocol = Protocol.parse( json )
-                    //SpecificCompiler compiler = new SpecificCompiler( protocol )
-					GoraCompiler compiler = new GoraCompiler( protocol )
+                    SpecificCompiler compiler = new SpecificCompiler( protocol )
                     compiler.setStringType( GenericData.StringType.valueOf( stringType ) )
                     compiler.setTemplateDir( templateDirectory )
                     compiler.compileToDestination( null, destinationDir )
+					//GoraCompiler compiler = new GoraCompiler( protocol )
+					//compiler.enqueue( Schema.parse()  )
 
                 } else if ( file.name.endsWith( SCHEMA_EXTENSION ) ) {
+*/
+				if ( file.name.endsWith( SCHEMA_EXTENSION ) ) {
 
                     //SpecificCompiler.compileSchema( file, destinationDir )
 					GoraCompiler.compileSchema( file, destinationDir )
-
+/*
                 } else if ( file.name.endsWith( PROTOCOL_EXTENSION ) ) {
 
                     //SpecificCompiler.compileProtocol( file, destinationDir )
 					GoraCompiler.compileProtocol( file, destinationDir )
-
+*/
                 } else {
 
                     throw new Exception( "Do not know file type of ${ file.name }" )
                 }
+/*
             } catch ( ParseException e ) {
                 throw new IOException( e )
+*/
             } catch ( DependencyResolutionRequiredException e ) {
                 throw new IOException( e )
             }
