@@ -5,17 +5,10 @@ apply plugin: 'maven'
 repositories {
     mavenCentral()
     mavenLocal()
-    maven {
-        url 'http://repository.codehaus.org/org/codehaus/groovy'
-    }
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "http://nexus.corp.macermedia.com/nexus/content/repositories/releases")
-        }
-    }
+configurations {
+    deployerJars
 }
 
 dependencies {
@@ -23,14 +16,22 @@ dependencies {
     compile "org.apache.gora:gora-core:${goraVersion}"
     compile "org.apache.gora:gora-compiler:${goraVersion}"
     groovy  "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    // to use WebDav protocol on upload
+    deployerJars 'org.apache.maven.wagon:wagon-webdav-jackrabbit:2.6'
 }
 
-
-/*
-jar {
-    dependsOn configurations.runtime
-    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
-}*/
+uploadArchives {
+    repositories.mavenDeployer {
+        def credentials = [
+                userName: "${cloudbeesUsername}", password: "${cloudbeesPassword}"
+        ]
+        configuration = configurations.deployerJars
+        repository(url: "dav:https://repository-drazzib.forge.cloudbees.com/release", authentication:
+                credentials)
+        snapshotRepository(url: "dav:https://repository-drazzib.forge.cloudbees.com/snapshot", authentication:
+                credentials)
+    }
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.12'
