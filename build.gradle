@@ -15,7 +15,6 @@ dependencies {
     compile gradleApi()
     compile "org.apache.gora:gora-core:${goraVersion}"
     compile "org.apache.gora:gora-compiler:${goraVersion}"
-    groovy  "org.codehaus.groovy:groovy-all:${groovyVersion}"
     // to use WebDav protocol on upload
     deployerJars 'org.apache.maven.wagon:wagon-webdav-jackrabbit:2.6'
 }
