@@ -23,17 +23,13 @@ import org.gradle.api.tasks.TaskAction
 
 class GoraCompileTask extends SourceTask {
 
-    static final String IDL_EXTENSION = ".avdl"
-    static final String PROTOCOL_EXTENSION = ".avpr"
     static final String SCHEMA_EXTENSION = ".avsc"
 
-    String stringType = "CharSequence"
-    String templateDirectory = "/org/apache/avro/compiler/specific/templates/java/classic/"
     File destinationDir
 
     GoraCompileTask() {
         super()
-        include "**/*$PROTOCOL_EXTENSION", "**/*$SCHEMA_EXTENSION", "**/*$IDL_EXTENSION"
+        include "**/*$SCHEMA_EXTENSION"
     }
 
     @TaskAction
@@ -45,7 +41,7 @@ class GoraCompileTask extends SourceTask {
 
         source.each { File file ->
 
-            logger.info("Processing ${file.name}" + file.name)
+            logger.info("Processing ${file.name}")
             try {
                 if (file.name.endsWith(SCHEMA_EXTENSION)) {
                     GoraCompiler.compileSchema(file, destinationDir)
