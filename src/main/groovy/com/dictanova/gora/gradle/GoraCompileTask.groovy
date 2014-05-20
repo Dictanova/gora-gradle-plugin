@@ -17,7 +17,6 @@
 package com.dictanova.gora.gradle
 
 import org.apache.gora.compiler.GoraCompiler
-import org.apache.maven.artifact.DependencyResolutionRequiredException
 import org.gradle.api.tasks.SourceTask
 import org.gradle.api.tasks.TaskAction
 
@@ -34,23 +33,6 @@ class GoraCompileTask extends SourceTask {
 
     @TaskAction
     void compile() {
-
-        if (source.empty) {
-            throw new Exception("source is empty")
-        }
-
-        source.each { File file ->
-
-            logger.info("Processing ${file.name}")
-            try {
-                if (file.name.endsWith(SCHEMA_EXTENSION)) {
-                    GoraCompiler.compileSchema(file, destinationDir)
-                } else {
-                    throw new Exception("Do not know file type of ${file.name}")
-                }
-            } catch (DependencyResolutionRequiredException e) {
-                throw new IOException(e)
-            }
-        }
+        GoraCompiler.compileSchema(source as File[], destinationDir)
     }
 }
