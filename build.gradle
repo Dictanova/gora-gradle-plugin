@@ -14,13 +14,11 @@
 * limitations under the License.
 */
 
-apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 configurations {
@@ -29,6 +27,7 @@ configurations {
 
 dependencies {
     compile gradleApi()
+    compile localGroovy()
     compile "org.apache.gora:gora-core:${goraVersion}"
     compile "org.apache.gora:gora-compiler:${goraVersion}"
     // to use WebDav protocol on upload
@@ -49,5 +48,5 @@ uploadArchives {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
+    gradleVersion = "2.1-20140717111533+0000"
 }
