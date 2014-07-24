@@ -12,20 +12,18 @@ Configure the plugin in your project as follows:
 ```groovy
 buildscript {
     repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url 'http://repository-drazzib.forge.cloudbees.com/snapshot/' }
+        jcenter()
     }
     dependencies {
         classpath 'org.apache.maven:maven-artifact:2.2.1'
-        classpath 'com.dictanova.gora.gradle:gora-gradle-plugin:0.5-SNAPSHOT'
+        classpath 'com.dictanova.gora.gradle:gora-gradle-plugin:0.5'
         classpath 'org.apache.gora:gora:0.4'
     }
 }
 
 // ...
 
-apply plugin: 'gora'
+apply plugin: 'com.dictanova.gora'
 
 compileGora.source = 'src/main/resources/'
 compileGora.destinationDir = file("src/main/java")

@@ -29,8 +29,8 @@ class GoraPluginTest {
     @Test
     public void goraPluginAddsCompileGoraToProject() {
         Project project = ProjectBuilder.builder().build()
-        project.apply plugin: 'gora'
+        project.apply plugin: 'com.dictanova.gora'
 
-        assertTrue(project.tasks.compileGora instanceof GoraCompileTask)
+        assertTrue(project.tasks.generateGora instanceof GoraCompileTask)
     }
 }
