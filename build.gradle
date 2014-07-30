@@ -84,7 +84,6 @@ bintray {
         publicDownloadNumbers = true
         attributes = ['gradle-plugin': 'com.dictanova.gora:com.dictanova.gora.gradle:gora-gradle-plugin']
         version = [
-                name      : version,
                 attributes: ['gradle-plugin': 'com.dictanova.gora:com.dictanova.gora.gradle:gora-gradle-plugin']
         ]
     }
